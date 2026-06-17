@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ventoro Ventures LLC — Federal Logistics &amp; AI Systems</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Expanded:wght@700;800&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0A0D10;
+    --panel:#141A20;
+    --steel:#1C2630;
+    --gold:#B8924A;
+    --gold-soft:#D8B978;
+    --paper:#E8E6DE;
+    --slate:#7C8893;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+
+  .font-display{ font-family:'Archivo Expanded',sans-serif; }
+  .font-mono{ font-family:'IBM Plex Mono',monospace; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---- scroll reveal ---- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1{ transition-delay:0.12s; }
+  .reveal-delay-2{ transition-delay:0.24s; }
+  .reveal-delay-3{ transition-delay:0.36s; }
+
+  /* ---- full bleed section frame ---- */
+  .stage{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+  }
+  .stage-bg{
+    position:absolute; inset:0;
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    will-change:transform;
+  }
+  @media (max-width:768px){
+    .stage-bg{ background-attachment:scroll; }
+  }
+  .stage-veil{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,13,16,0.55) 0%, rgba(10,13,16,0.35) 35%, rgba(10,13,16,0.92) 100%);
+  }
+  .stage-veil-flat{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,13,16,0.65) 0%, rgba(10,13,16,0.78) 100%);
+  }
+
+  /* manifest tag — the signature element */
+  .manifest-tag{
+    position:absolute;
+    top:2.25rem;
+    right:2.25rem;
+    text-align:right;
+    z-index:20;
+  }
+  .manifest-tag .code{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem;
+    letter-spacing:0.12em;
+    color:var(--gold-soft);
+    border:1px solid rgba(184,146,74,0.4);
+    padding:0.35rem 0.7rem;
+    display:inline-block;
+    background:rgba(10,13,16,0.55);
+    backdrop-filter:blur(2px);
+  }
+  .manifest-tag .sub{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.62rem;
+    color:var(--slate);
+    margin-top:0.4rem;
+    letter-spacing:0.08em;
+  }
+
+  .rule-gold{
+    width:3px;
+    background:linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.22em;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+  }
+
+  .nav-link{
+    position:relative;
+    color:var(--slate);
+    transition:color 0.3s ease;
+  }
+  .nav-link:hover{ color:var(--paper); }
+  .nav-link::after{
+    content:'';
+    position:absolute; left:0; bottom:-4px;
+    width:0; height:1px;
+    background:var(--gold);
+    transition:width 0.3s ease;
+  }
+  .nav-link:hover::after{ width:100%; }
+
+  .btn-gold{
+    background:var(--gold);
+    color:var(--ink);
+    transition:background 0.3s ease, transform 0.2s ease;
+  }
+  .btn-gold:hover{ background:var(--gold-soft); transform:translateY(-1px); }
+
+  .btn-outline{
+    border:1px solid rgba(232,230,222,0.35);
+    color:var(--paper);
+    transition:border-color 0.3s ease, background 0.3s ease;
+  }
+  .btn-outline:hover{ border-color:var(--gold); background:rgba(184,146,74,0.08); }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  .card-line{
+    border-top:1px solid rgba(124,136,147,0.25);
+  }
+
+  .stat-num{
+    font-family:'Archivo Expanded',sans-serif;
+    font-weight:800;
+    color:var(--gold-soft);
+  }
+
+  .grain-overlay{
+    position:fixed; inset:0; pointer-events:none; z-index:50;
+    opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .field-input{
+    background:transparent;
+    border-bottom:1px solid rgba(124,136,147,0.4);
+    color:var(--paper);
+    transition:border-color 0.3s ease;
+  }
+  .field-input:focus{ border-color:var(--gold); outline:none; }
+  .field-input::placeholder{ color:var(--slate); }
+</style>
+</head>
+<body class="font-light antialiased">
+
+<div class="grain-overlay"></div>
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 left-0 w-full z-50 px-6 md:px-10 py-5 flex items-center justify-between bg-gradient-to-b from-[#0A0D10]/90 to-transparent">
+  <div class="font-display font-800 text-sm md:text-base tracking-[0.18em] text-[#E8E6DE]">
+    VENTORO <span class="text-[#B8924A]">VENTURES</span>
+  </div>
+  <nav class="hidden md:flex items-center gap-8 font-mono text-xs tracking-widest uppercase">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#logistics" class="nav-link">Logistics</a>
+    <a href="#ai" class="nav-link">AI Solutions</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+  <a href="#contact" class="btn-outline font-mono text-xs uppercase tracking-widest px-4 py-2 hidden sm:inline-block">
+    Inquire
+  </a>
+</header>
+
+<!-- ============ 1. HERO ============ -->
+<section class="stage items-center justify-center text-center" id="hero">
+  <div class="stage-bg" style="background-image:url('https://images.unsplash.com/photo-0A7YwYhZhWw?auto=format&fit=crop&w=2400&q=80');"></div>
+  <div class="stage-veil"></div>
+
+  <div class="manifest-tag hidden md:block">
+    <span class="code">DOC // VV-0001</span>
+    <div class="sub">ORIGIN: TAMPA, FL<br/>STATUS: ACTIVE CONTRACTOR</div>
+  </div>
+
+  <div class="relative z-10 px-6 max-w-5xl reveal is-visible">
+    <p class="eyebrow mb-6">Federal Contracting &amp; Technology Systems</p>
+    <h1 class="font-display font-800 text-[13vw] md:text-[7.5vw] leading-[0.95] tracking-tight text-[#E8E6DE]">
+      VENTORO<br/><span class="text-[#B8924A]">VENTURES</span>
+    </h1>
+    <p class="mt-8 text-lg md:text-2xl font-light text-[#E8E6DE]/90 tracking-wide">
+      Powering Progress. Delivering Innovation.
+    </p>
+    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#about" class="btn-gold font-mono text-xs uppercase tracking-widest px-7 py-4">
+        Explore Capabilities
+      </a>
+      <a href="#contact" class="btn-outline font-mono text-xs uppercase tracking-widest px-7 py-4">
+        Contracting Officers →
+      </a>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 font-mono text-[10px] tracking-[0.3em] text-[#7C8893] uppercase">
+    Scroll
+  </div>
+</section>
+
+<!-- ============ 2. ABOUT ============ -->
+<section class="relative bg-[#0A0D10] py-28 md:py-40 px-6 md:px-16" id="about">
+  <div class="manifest-tag hidden md:block" style="position:absolute; top:2.5rem; right:2.5rem;">
+    <span class="code">DOC // VV-0002</span>
+    <div class="sub">CLASS: CORPORATE PROFILE</div>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid md:grid-cols-[auto_1fr] gap-10 md:gap-16">
+    <div class="rule-gold hidden md:block"></div>
+    <div>
+      <p class="eyebrow reveal">About the Firm</p>
+      <h2 class="font-display font-700 text-4xl md:text-6xl mt-5 leading-[1.05] text-[#E8E6DE] reveal reveal-delay-1">
+        A newly founded government contracting firm built on the intersection of global logistics and artificial intelligence.
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-10 mt-16">
+        <div class="reveal reveal-delay-2">
+          <p class="stat-num text-4xl">FL</p>
+          <p class="font-mono text-xs uppercase tracking-widest text-[#7C8893] mt-2">Florida-Based<br/>Headquarters</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="stat-num text-4xl">02</p>
+          <p class="font-mono text-xs uppercase tracking-widest text-[#7C8893] mt-2">Operating<br/>Divisions</p>
+        </div>
+        <div class="reveal reveal-delay-3">
+          <p class="stat-num text-4xl">100%</p>
+          <p class="font-mono text-xs uppercase tracking-widest text-[#7C8893] mt-2">Compliance-First<br/>Architecture</p>
+        </div>
+      </div>
+
+      <p class="mt-14 text-base md:text-lg text-[#7C8893] leading-relaxed max-w-2xl reveal reveal-delay-3">
+        Ventoro Ventures operates a dual-track model purpose-built for federal procurement: a commodity brokering and logistics arm that moves hardware and infrastructure directly into agency hands, paired with a custom AI software division engineering compliant, mission-ready systems. One firm. Two disciplines. A single standard of execution.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. COMMODITY LOGISTICS ============ -->
+<section class="stage items-end" id="logistics">
+  <div class="stage-bg" style="background-image:url('https://images.unsplash.com/photo-0A7YwYhZhWw?auto=format&fit=crop&w=2400&q=80'); filter:grayscale(0.15) brightness(0.85);"></div>
+  <div class="stage-veil"></div>
+
+  <div class="manifest-tag hidden md:block">
+    <span class="code">DOC // VV-0003</span>
+    <div class="sub">DIVISION: LOGISTICS<br/>MANIFEST: COMMODITY / INFRA</div>
+  </div>
+
+  <div class="relative z-10 px-6 md:px-16 pb-20 md:pb-28 w-full">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-[auto_1fr] gap-10 md:gap-16">
+      <div class="rule-gold hidden md:block"></div>
+      <div>
+        <p class="eyebrow reveal">Division 01 — Commodity &amp; Logistics</p>
+        <h2 class="font-display font-700 text-4xl md:text-6xl mt-5 text-[#E8E6DE] reveal reveal-delay-1">
+          Supply lines built<br/>for federal scale.
+        </h2>
+        <p class="mt-6 max-w-xl text-[#E8E6DE]/80 leading-relaxed reveal reveal-delay-2">
+          Ventoro sources and routes hardware, infrastructure components, and commercial goods directly to government agencies, eliminating warehousing friction through engineered drop-ship pipelines.
+        </p>
+
+        <div class="grid sm:grid-cols-3 gap-8 mt-14 max-w-3xl">
+          <div class="card-line pt-6 reveal reveal-delay-1">
+            <p class="font-display font-700 text-lg text-[#B8924A]">Wholesale Sourcing</p>
+            <p class="text-sm text-[#7C8893] mt-2 leading-relaxed">Direct manufacturer relationships cut cost and lead time at every tier of the supply chain.</p>
+          </div>
+          <div class="card-line pt-6 reveal reveal-delay-2">
+            <p class="font-display font-700 text-lg text-[#B8924A]">Federal Drop-Shipping</p>
+            <p class="text-sm text-[#7C8893] mt-2 leading-relaxed">Point-to-agency delivery infrastructure built around procurement timelines, not warehouse cycles.</p>
+          </div>
+          <div class="card-line pt-6 reveal reveal-delay-3">
+            <p class="font-display font-700 text-lg text-[#B8924A]">Supply Chain Efficiency</p>
+            <p class="text-sm text-[#7C8893] mt-2 leading-relaxed">Routing and vendor logic engineered to compress cost-per-unit without compromising compliance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. AI SOLUTIONS ============ -->
+<section class="stage items-end" id="ai">
+  <div class="stage-bg" style="background-image:url('https://images.unsplash.com/photo-M5tzZtFCOfs?auto=format&fit=crop&w=2400&q=80');"></div>
+  <div class="stage-veil-flat"></div>
+
+  <div class="manifest-tag hidden md:block">
+    <span class="code">DOC // VV-0004</span>
+    <div class="sub">DIVISION: AI SYSTEMS<br/>MANIFEST: SOFTWARE / DEFENSE</div>
+  </div>
+
+  <div class="relative z-10 px-6 md:px-16 pb-20 md:pb-28 w-full">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-[auto_1fr] gap-10 md:gap-16">
+      <div class="rule-gold hidden md:block"></div>
+      <div>
+        <p class="eyebrow reveal">Division 02 — AI Solutions</p>
+        <h2 class="font-display font-700 text-4xl md:text-6xl mt-5 text-[#E8E6DE] reveal reveal-delay-1">
+          Custom software,<br/>built for compliance.
+        </h2>
+        <p class="mt-6 max-w-xl text-[#E8E6DE]/80 leading-relaxed reveal reveal-delay-2">
+          Our engineering division designs and ships high-technology software solutions for agency partners — systems generated, tested, and hardened against the standards mission-critical work demands.
+        </p>
+
+        <div class="grid sm:grid-cols-3 gap-8 mt-14 max-w-3xl">
+          <div class="card-line pt-6 reveal reveal-delay-1">
+            <p class="font-display font-700 text-lg text-[#B8924A]">Custom Generation</p>
+            <p class="text-sm text-[#7C8893] mt-2 leading-relaxed">Software architected around the agency's mission, not retrofitted from a commercial template.</p>
+          </div>
+          <div class="card-line pt-6 reveal reveal-delay-2">
+            <p class="font-display font-700 text-lg text-[#B8924A]">Defense-Ready Innovation</p>
+            <p class="text-sm text-[#7C8893] mt-2 leading-relaxed">Built to operate within the security and reliability tolerances of defense and federal environments.</p>
+          </div>
+          <div class="card-line pt-6 reveal reveal-delay-3">
+            <p class="font-display font-700 text-lg text-[#B8924A]">Compliant by Design</p>
+            <p class="text-sm text-[#7C8893] mt-2 leading-relaxed">Federal compliance frameworks built into the architecture from the first line of code.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST / GOV STRIP ============ -->
+<section class="stage items-center justify-center text-center" style="min-height:75vh;">
+  <div class="stage-bg" style="background-image:url('https://images.unsplash.com/photo-luOHcHUkirA?auto=format&fit=crop&w=2400&q=80');"></div>
+  <div class="stage-veil"></div>
+
+  <div class="manifest-tag hidden md:block">
+    <span class="code">DOC // VV-0005</span>
+    <div class="sub">STATUS: REGISTERED ENTITY<br/>STATE OF FLORIDA</div>
+  </div>
+
+  <div class="relative z-10 px-6 max-w-3xl reveal">
+    <p class="eyebrow mb-6">Built on Trust</p>
+    <h2 class="font-display font-700 text-3xl md:text-5xl leading-tight text-[#E8E6DE]">
+      Engineered for the standards federal procurement demands.
+    </h2>
+    <p class="mt-6 text-[#7C8893] leading-relaxed max-w-xl mx-auto">
+      Every shipment, every system, every line of code is built to withstand the scrutiny of the agencies we serve.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 5. CONTACT / FOOTER ============ -->
+<section class="relative bg-[#0A0D10] pt-28 md:pt-36 pb-12 px-6 md:px-16" id="contact">
+  <div class="manifest-tag hidden md:block" style="position:absolute; top:2.5rem; right:2.5rem;">
+    <span class="code">DOC // VV-0006</span>
+    <div class="sub">CLASS: CONTACT / OUTREACH</div>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid md:grid-cols-[auto_1fr] gap-10 md:gap-16">
+    <div class="rule-gold hidden md:block"></div>
+    <div>
+      <p class="eyebrow reveal">Contracting Inquiries</p>
+      <h2 class="font-display font-700 text-4xl md:text-6xl mt-5 text-[#E8E6DE] reveal reveal-delay-1 max-w-2xl">
+        Let's put a manifest together.
+      </h2>
+      <p class="mt-6 max-w-xl text-[#7C8893] leading-relaxed reveal reveal-delay-2">
+        Contracting officers, prime partners, and procurement teams — reach out directly. We respond within one business day.
+      </p>
+
+      <form class="mt-14 max-w-xl space-y-8 reveal reveal-delay-2" onsubmit="event.preventDefault(); this.querySelector('.confirm').classList.remove('hidden');">
+        <div class="grid sm:grid-cols-2 gap-8">
+          <div>
+            <label class="font-mono text-xs uppercase tracking-widest text-[#7C8893]">Name</label>
+            <input type="text" required placeholder="Full name" class="field-input w-full mt-2 py-2 text-[#E8E6DE]" />
+          </div>
+          <div>
+            <label class="font-mono text-xs uppercase tracking-widest text-[#7C8893]">Agency / Organization</label>
+            <input type="text" placeholder="Agency name" class="field-input w-full mt-2 py-2 text-[#E8E6DE]" />
+          </div>
+        </div>
+        <div>
+          <label class="font-mono text-xs uppercase tracking-widest text-[#7C8893]">Email</label>
+          <input type="email" required placeholder="name@agency.gov" class="field-input w-full mt-2 py-2 text-[#E8E6DE]" />
+        </div>
+        <div>
+          <label class="font-mono text-xs uppercase tracking-widest text-[#7C8893]">Procurement Need</label>
+          <textarea rows="3" placeholder="Commodity logistics, AI systems, or both" class="field-input w-full mt-2 py-2 text-[#E8E6DE] resize-none"></textarea>
+        </div>
+        <button type="submit" class="btn-gold font-mono text-xs uppercase tracking-widest px-7 py-4">
+          Submit Inquiry
+        </button>
+        <p class="confirm hidden font-mono text-xs text-[#B8924A] tracking-widest">Received. We'll follow up within one business day.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto mt-28 pt-8 border-t border-[#1C2630] flex flex-col sm:flex-row justify-between gap-4 font-mono text-xs text-[#7C8893] tracking-wide">
+    <span>© 2026 Ventoro Ventures LLC. Florida, USA.</span>
+    <span>SAM.gov Registered · CAGE Code on Request</span>
+  </div>
+</section>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
